@@ -1,0 +1,17 @@
+{
+  "name": "Qtea Dublin — Handcrafted Boba & Tea House",
+  "short_name": "Qtea",
+  "description": "Cozy, family-run bubble tea house in Dublin, CA. Fresh-brewed teas, savory snacks, and good vibes.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#7b9e6b",
+  "background_color": "#faf8f5",
+  "icons": [
+    {
+      "src": "branding/favicon-square.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
