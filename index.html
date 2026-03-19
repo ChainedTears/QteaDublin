@@ -39,14 +39,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=SN+Pro:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet" />
-
-  <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
-  <!-- Stylesheet -->
+  <!-- Stylesheet (render-blocking, intentional) -->
   <link rel="stylesheet" href="styles.css" fetchpriority="high" />
+
+  <!-- Google Fonts — loaded async via media swap to avoid render-blocking -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=SN+Pro:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=SN+Pro:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
+
+  <!-- FontAwesome — loaded async to avoid render-blocking -->
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'" />
+
+  <!-- Fallback for no-JS: load fonts synchronously -->
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=SN+Pro:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  </noscript>
 
   <!-- Structured Data: LocalBusiness -->
   <script type="application/ld+json">
@@ -193,22 +201,22 @@
     </div>
 
     <div class="hero__content">
-      <div class="hero__badge reveal" data-delay="0">
+      <div class="hero__badge hero-reveal">
         <span>Dublin, CA</span>
       </div>
       <h1 class="hero__title">
-        <span class="hero__title-line reveal" data-delay="100">
+        <span class="hero__title-line hero-reveal">
           <span class="q-accent">Q</span>Tea <span class="hero__title-kanji">茶店</span>
         </span>
-        <span class="hero__title-sub reveal" data-delay="250">Dublin</span>
+        <span class="hero__title-sub hero-reveal">Dublin</span>
       </h1>
-      <p class="hero__tagline reveal" data-delay="400">Sip into Perfection</p>
-      <div class="hero__cta reveal" data-delay="550">
+      <p class="hero__tagline hero-reveal">Sip into Perfection</p>
+      <div class="hero__cta hero-reveal">
         <a href="#order" class="btn btn--primary">Order Now</a>
         <a href="#menu" class="btn btn--ghost">Explore Menu</a>
       </div>
     </div>
-    <div class="hero__scroll-indicator reveal" data-delay="800">
+    <div class="hero__scroll-indicator hero-reveal">
       <span>Scroll</span>
       <div class="hero__scroll-line"></div>
     </div>
@@ -408,7 +416,7 @@
               <span class="menu-card__item-tag">Fan Favorite</span>
             </li>
             <li>
-              <span class="menu-card__item-name">Spam Musubi</span>
+              <span class="menu-card__item-name">Spam Masubi</span>
             </li>
           </ul>
           <div class="menu-card__glow"></div>

@@ -10,7 +10,7 @@
   const loaderBar = document.getElementById('loaderBar');
   document.body.classList.add('loading');
 
-  const LOAD_DURATION = 1200;
+  const LOAD_DURATION = 500;
   const loadStart = performance.now();
   let loadRAF;
 
@@ -338,35 +338,19 @@
   });
 
 
-  /* ─── HERO ENTRANCE ANIMATION (GSAP) ────────────────── */
+  /* ─── HERO ENTRANCE ANIMATION (CSS-driven, no GSAP dependency) ── */
   function heroEntrance() {
-    if (typeof gsap === 'undefined') return;
+    const heroReveals = document.querySelectorAll('.hero-reveal');
+    heroReveals.forEach((el) => el.classList.add('hero-animate'));
 
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    void document.body.offsetHeight;
 
-    tl.set('.hero__content .reveal', { opacity: 0, y: 40 });
-
-    tl.to('.hero__content .reveal', {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      stagger: 0.15,
-      delay: 0.3,
-      onComplete: function () {
-        document.querySelectorAll('.hero__content .reveal').forEach((el) => {
-          el.classList.add('visible');
-          el.style.transform = '';
-          el.style.opacity = '';
-        });
-      },
+    heroReveals.forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 120);
     });
   }
 
-  if (document.readyState === 'complete') {
-    heroEntrance();
-  } else {
-    window.addEventListener('load', heroEntrance);
-  }
+  heroEntrance();
 
 
   /* ─── PERFORMANCE: DISABLE HOVER ON SCROLL ───────────── */

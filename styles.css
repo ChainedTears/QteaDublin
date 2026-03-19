@@ -70,13 +70,13 @@ body.loading {
 .loader__cup-body {
   stroke-dasharray: 400;
   stroke-dashoffset: 400;
-  animation: loaderDraw 1.4s var(--ease-out) forwards;
+  animation: loaderDraw 0.5s var(--ease-out) forwards;
 }
 
 .loader__cup-rim {
   stroke-dasharray: 220;
   stroke-dashoffset: 220;
-  animation: loaderDraw 1s var(--ease-out) 0.3s forwards;
+  animation: loaderDraw 0.4s var(--ease-out) 0.1s forwards;
 }
 
 @keyframes loaderDraw {
@@ -84,7 +84,7 @@ body.loading {
 }
 
 .loader__tea-clip-rect {
-  animation: loaderFill 2s var(--ease-out) 0.5s forwards;
+  animation: loaderFill 0.5s var(--ease-out) 0.1s forwards;
 }
 
 @keyframes loaderFill {
@@ -95,15 +95,15 @@ body.loading {
 .loader__steam {
   stroke-dasharray: 40;
   stroke-dashoffset: 40;
-  animation: loaderSteam 1.2s ease-in-out 0.8s infinite alternate;
+  animation: loaderSteam 0.6s ease-in-out 0.15s infinite alternate;
 }
 
 .loader__steam--2 {
-  animation-delay: 1s;
+  animation-delay: 0.25s;
 }
 
 .loader__steam--3 {
-  animation-delay: 1.2s;
+  animation-delay: 0.35s;
 }
 
 @keyframes loaderSteam {
@@ -123,7 +123,7 @@ body.loading {
   color: var(--accent);
   opacity: 0;
   transform: translateY(100%);
-  animation: loaderTextUp 0.7s var(--ease-out) 0.5s forwards;
+  animation: loaderTextUp 0.35s var(--ease-out) 0.1s forwards;
   letter-spacing: 0.3em;
 }
 
@@ -1513,6 +1513,25 @@ address {
 }
 
 
+/* ─── HERO REVEAL (visible by default for LCP, animated by JS after loader) ── */
+.hero-reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.8s var(--ease-out),
+              transform 0.8s var(--ease-out);
+}
+
+.hero-reveal.hero-animate {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero-reveal.hero-animate.visible {
+  opacity: 1;
+  transform: translate(0);
+}
+
+
 /* ─── SCROLL REVEAL ANIMATIONS ──────────────────────────── */
 .reveal,
 .reveal-left,
@@ -1619,7 +1638,8 @@ address {
     transition-duration: 0.01ms !important;
   }
 
-  .reveal, .reveal-left, .reveal-up {
+  .reveal, .reveal-left, .reveal-up,
+  .hero-reveal, .hero-reveal.hero-animate {
     opacity: 1;
     transform: none;
   }
