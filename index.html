@@ -3,27 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Qtea Dublin — Handcrafted Boba & Tea House</title>
-  <meta name="description" content="Qtea is a cozy, family-run bubble tea house in Dublin, CA specializing in fresh-brewed teas, savory onigiri, and crispy snacks." />
+  <title>Qtea — Tea House in Dublin, California</title>
+  <meta name="description" content="Qtea is a family-run tea house on Grafton Street in Dublin, California, serving fresh-brewed milk teas, fruit teas and smoothies at six sweetness levels, plus house-made popcorn chicken." />
   <link rel="canonical" href="https://qteadublin.xyz/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Qtea Dublin" />
-  <meta property="og:title" content="Qtea Dublin — Handcrafted Boba & Tea House" />
-  <meta property="og:description" content="Cozy, family-run bubble tea house in Dublin, CA. Fresh-brewed teas, savory snacks, and customizable sweetness levels." />
+  <meta property="og:title" content="Qtea — Tea House in Dublin, California" />
+  <meta property="og:description" content="A family-run tea house in Dublin, California. Fresh-brewed boba, fruit teas and house-made popcorn chicken." />
   <meta property="og:url" content="https://qteadublin.xyz/" />
   <meta property="og:image" content="https://qteadublin.xyz/branding/favicon-square.png" />
   <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Qtea Dublin — Handcrafted Boba & Tea House" />
-  <meta name="twitter:description" content="Cozy, family-run bubble tea house in Dublin, CA. Fresh-brewed teas, savory snacks, and customizable sweetness levels." />
+  <meta name="twitter:title" content="Qtea — Tea House in Dublin, California" />
+  <meta name="twitter:description" content="A family-run tea house in Dublin, California. Fresh-brewed boba, fruit teas and house-made popcorn chicken." />
   <meta name="twitter:image" content="https://qteadublin.xyz/branding/favicon-square.png" />
 
+  <!-- Apply saved/system theme before first paint so the intro never flashes the wrong colours -->
+  <script>
+    try {
+      var t = localStorage.getItem('qtea-theme') ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+  <noscript><style>.loader { display: none; }</style></noscript>
+
   <!-- Theme & Icons -->
-  <meta name="theme-color" content="#7b9e6b" />
+  <meta name="theme-color" content="#f5efe4" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#12110f" media="(prefers-color-scheme: dark)" />
   <link rel="icon" type="image/png" href="branding/favicon-square.png" />
   <link rel="apple-touch-icon" href="branding/favicon-square.png" />
   <link rel="manifest" href="manifest.json" />
@@ -43,8 +54,8 @@
   <link rel="stylesheet" href="styles.css" fetchpriority="high" />
 
   <!-- Google Fonts — loaded async via media swap to avoid render-blocking -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=SN+Pro:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=SN+Pro:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..700&family=Noto+Serif+JP:wght@300;400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..700&family=Noto+Serif+JP:wght@300;400;500&display=swap" media="print" onload="this.media='all'" />
 
   <!-- FontAwesome — loaded async to avoid render-blocking -->
   <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -52,7 +63,7 @@
 
   <!-- Fallback for no-JS: load fonts synchronously -->
   <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=SN+Pro:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..700&family=Noto+Serif+JP:wght@300;400;500&display=swap" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   </noscript>
 
@@ -65,7 +76,7 @@
     "image": "https://qteadublin.xyz/branding/favicon-square.png",
     "url": "https://qteadublin.xyz",
     "@id": "https://qteadublin.xyz/#restaurant",
-    "description": "Cozy, family-run bubble tea house in Dublin, CA specializing in fresh-brewed teas, savory snacks, and customizable sweetness levels.",
+    "description": "Qtea is a family-run tea house on Grafton Street in Dublin, California, serving fresh-brewed milk teas, fruit teas and smoothies at six sweetness levels, plus house-made popcorn chicken.",
     "servesCuisine": ["Bubble Tea", "Boba", "Japanese Snacks"],
     "priceRange": "$",
     "address": {
@@ -83,11 +94,12 @@
     },
     "hasMap": "https://maps.app.goo.gl/HUZbn8xssgVRDX637",
     "openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "12:00", "closes": "19:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "12:00", "closes": "19:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "12:00", "closes": "20:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "12:00", "closes": "20:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "12:00", "closes": "20:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "11:30", "closes": "19:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "12:00", "closes": "20:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "11:30", "closes": "20:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "12:00", "closes": "22:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "11:30", "closes": "22:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "11:30", "closes": "20:00" }
     ],
     "sameAs": [
@@ -103,10 +115,10 @@
   <!-- SEO: noscript fallback for crawlers and users without JS -->
   <noscript>
     <div style="max-width:700px;margin:2rem auto;padding:2rem;font-family:sans-serif;">
-      <h1>Qtea Dublin — Handcrafted Boba & Tea House</h1>
-      <p>Qtea is a cozy, family-run bubble tea house in Dublin, CA specializing in fresh-brewed teas, savory snacks, and customizable sweetness levels.</p>
+      <h1>Qtea — Tea House in Dublin, California</h1>
+      <p>Qtea is a family-run tea house on Grafton Street in Dublin, California, serving fresh-brewed milk teas, fruit teas and smoothies at six sweetness levels, plus house-made popcorn chicken.</p>
       <p><strong>Address:</strong> 4064 Grafton St, Dublin, CA 94568</p>
-      <p><strong>Hours:</strong> Mon 12–7 PM | Tue Closed | Wed 12–7 PM | Thu 11:30 AM–7 PM | Fri 12–8 PM | Sat–Sun 11:30 AM–8 PM</p>
+      <p><strong>Hours:</strong> Mon–Wed 12–8 PM | Thu 11:30 AM–7 PM | Fri 12–10 PM | Sat 11:30 AM–10 PM | Sun 11:30 AM–8 PM</p>
       <p><a href="https://order.online/store/33225873">Order Delivery (DoorDash)</a> | <a href="https://order.snackpass.co/QTea-(4064-Grafton-St-Dublin)-689d4f91b94b48f79d3e741f">Order Pickup (Snackpass)</a></p>
       <p><a href="https://www.instagram.com/qtea.dublin/">Instagram</a> | <a href="https://www.yelp.com/biz/qtea-dublin-10">Yelp</a></p>
     </div>
@@ -115,29 +127,14 @@
   <!-- ═══════════════════════════════════════════════ -->
   <!-- LOADING SCREEN                                  -->
   <!-- ═══════════════════════════════════════════════ -->
-  <div class="loader" id="loader">
+  <div class="loader" id="loader" aria-hidden="true">
     <div class="loader__content">
-      <div class="loader__cup">
-        <svg viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="loader__cup-body" d="M25 40H95L88 140C88 140 88 150 60 150C32 150 32 140 32 140L25 40Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
-          <ellipse class="loader__cup-rim" cx="60" cy="40" rx="35" ry="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
-          <path class="loader__steam loader__steam--1" d="M45 30C45 22 50 22 50 14C50 6 45 6 45 0" stroke="currentColor" stroke-width="1.2" opacity="0.4" fill="none" stroke-linecap="round"/>
-          <path class="loader__steam loader__steam--2" d="M60 28C60 20 65 20 65 12C65 4 60 4 60 0" stroke="currentColor" stroke-width="1.2" opacity="0.4" fill="none" stroke-linecap="round"/>
-          <path class="loader__steam loader__steam--3" d="M75 30C75 22 80 22 80 14C80 6 75 6 75 0" stroke="currentColor" stroke-width="1.2" opacity="0.4" fill="none" stroke-linecap="round"/>
-          <defs>
-            <clipPath id="teaClip">
-              <rect class="loader__tea-clip-rect" x="0" y="160" width="120" height="120"/>
-            </clipPath>
-          </defs>
-          <path clip-path="url(#teaClip)" d="M27 45H93L88 140C88 140 88 148 60 148C32 148 32 140 32 140L27 45Z" fill="currentColor" opacity="0.15"/>
-        </svg>
+      <p class="loader__eyebrow">Tea House <span>·</span> Dublin</p>
+      <div class="loader__mark">
+        <span class="loader__char q-accent" style="--i:0">Q</span><span class="loader__char" style="--i:1">t</span><span class="loader__char" style="--i:2">e</span><span class="loader__char" style="--i:3">a</span>
       </div>
-      <div class="loader__text">
-        <span class="loader__kanji">茶</span>
-      </div>
-      <div class="loader__bar-track">
-        <div class="loader__bar-fill" id="loaderBar"></div>
-      </div>
+      <span class="loader__rule"></span>
+      <span class="loader__kanji">茶店</span>
     </div>
   </div>
 
@@ -146,9 +143,12 @@
   <!-- ═══════════════════════════════════════════════ -->
   <nav class="nav" id="nav">
     <div class="nav__inner">
-      <a href="#hero" class="nav__logo">
-        <img src="branding/qtea.png" alt="Qtea" class="nav__logo-img logo--light" />
-        <img src="branding/qtea-dark.png" alt="Qtea" class="nav__logo-img logo--dark" />
+      <a href="#hero" class="nav__logo" aria-label="Qtea — back to top">
+        <img src="branding/favicon-square.png" alt="" class="nav__mark" width="38" height="38" />
+        <span class="nav__type">
+          <span class="nav__wordmark"><span class="q-accent">Q</span>tea</span>
+          <span class="nav__kanji" aria-hidden="true">茶店</span>
+        </span>
       </a>
 
       <ul class="nav__links">
@@ -189,31 +189,26 @@
   <!-- HERO                                            -->
   <!-- ═══════════════════════════════════════════════ -->
   <section class="hero" id="hero">
-    <div class="hero__parallax-bg" id="heroBg">
-      <!-- Frosted glass circles -->
-      <div class="hero__orb hero__orb--1"></div>
-      <div class="hero__orb hero__orb--2"></div>
-      <div class="hero__orb hero__orb--3"></div>
-      <div class="hero__orb hero__orb--4"></div>
-      <div class="hero__orb hero__orb--5"></div>
-      <div class="hero__orb hero__orb--6"></div>
-      <div class="hero__orb hero__orb--7"></div>
+    <div class="hero__parallax-bg" id="heroBg" aria-hidden="true">
+      <span class="hero__watermark">茶</span>
     </div>
 
     <div class="hero__content">
-      <div class="hero__badge hero-reveal">
-        <span>Dublin, CA</span>
-      </div>
+      <p class="hero__eyebrow hero-reveal">Tea House <span class="hero__sep">·</span> Dublin, California</p>
       <h1 class="hero__title">
-        <span class="hero__title-line hero-reveal">
-          <span class="q-accent">Q</span>Tea <span class="hero__title-kanji">茶店</span>
-        </span>
-        <span class="hero__title-sub hero-reveal">Dublin</span>
+        <span class="hero__title-line hero-reveal"><span class="q-accent">Q</span>tea</span>
+        <span class="hero__title-sub hero-reveal">Brewed fresh. Sweetened your way.</span>
       </h1>
-      <p class="hero__tagline hero-reveal">Sip into Perfection</p>
+      <div class="hero__ornament hero-reveal" aria-hidden="true">
+        <span></span><span class="hero__ornament-kanji">茶店</span><span></span>
+      </div>
+      <p class="hero__tagline hero-reveal">
+        A family-run tea house on Grafton Street, pouring milk teas, fruit teas
+        and smoothies alongside a small kitchen menu.
+      </p>
       <div class="hero__cta hero-reveal">
-        <a href="#order" class="btn btn--primary">Order Now</a>
-        <a href="#menu" class="btn btn--ghost">Explore Menu</a>
+        <a href="#order" class="btn btn--primary">Order Ahead</a>
+        <a href="#menu" class="btn btn--ghost">View the Menu</a>
       </div>
     </div>
     <div class="hero__scroll-indicator hero-reveal">
@@ -245,13 +240,11 @@
             <!-- Image carousel -->
             <div class="carousel" id="carousel">
               <div class="carousel__track" id="carouselTrack"></div>
-              <button class="carousel__arrow carousel__arrow--prev" id="carouselPrev" aria-label="Previous image">
-                <i class="fa-solid fa-chevron-left"></i>
-              </button>
-              <button class="carousel__arrow carousel__arrow--next" id="carouselNext" aria-label="Next image">
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
-              <div class="carousel__dots" id="carouselDots"></div>
+              <div class="carousel__controls">
+                <button class="carousel__arrow" id="carouselPrev" aria-label="Previous photo">←</button>
+                <span class="carousel__count" aria-live="polite"><span id="carouselCurrent">01</span><span class="carousel__count-sep">/</span><span id="carouselTotal">10</span></span>
+                <button class="carousel__arrow" id="carouselNext" aria-label="Next photo">→</button>
+              </div>
             </div>
           </div>
           <div class="about__float-badge">
@@ -262,15 +255,16 @@
 
         <div class="about__content">
           <span class="section-tag reveal" data-delay="0">Our Story</span>
-          <h2 class="section-title reveal" data-delay="100">Crafted with<br><em>Love & Tradition</em></h2>
+          <h2 class="section-title reveal" data-delay="100">A family shop,<br><em>tea first.</em></h2>
           <p class="about__text reveal" data-delay="200">
-            <span class="q-accent">Q</span>Tea is a cozy, family-run bubble tea house. We believe that the perfect drink begins with the finest
-            ingredients — from home-brewed tea leaves to top quality syrups.
+            <span class="q-accent">Q</span>tea started with a simple idea: a drink is only as good as the tea
+            underneath it. We brew from loose leaves in the shop. Our house oolong is a dark roast from
+            Taiwan, with a quiet savory depth and a sweet, lingering finish, and it's the backbone of our
+            Roasted Oolong Milk Tea.
           </p>
           <p class="about__text reveal" data-delay="300">
-            Our passion lies in fresh-brewed teas and customizable sweetness levels, ensuring each
-            sip is tailored exactly to your taste. Alongside our signature beverages, we serve
-            <strong>savory house-made popcorn chicken and other crispy snacks that make every visit a complete experience.</strong>
+            Every drink comes in six sweetness levels, so you can have it exactly as you like. Something to eat?
+            <strong>Our kitchen makes basil popcorn chicken, curly fries and Spam musubi.</strong>
           </p>
 
           <div class="about__stats reveal" data-delay="400">
@@ -284,7 +278,7 @@
             </div>
             <div class="about__stat">
               <span class="about__stat-number" data-count="100">0</span><span class="about__stat-suffix">%</span>
-              <span class="about__stat-label">Fresh Brewed</span>
+              <span class="about__stat-label">Brewed In House</span>
             </div>
           </div>
         </div>
@@ -300,128 +294,110 @@
     <div class="container">
       <div class="menu__header">
         <span class="section-tag reveal">The Menu</span>
-        <h2 class="section-title reveal" data-delay="100">Our Signature<br><em>Collection</em></h2>
-        <p class="menu__subtitle reveal" data-delay="200">Handcrafted with precision, served with love.</p>
+        <h2 class="section-title reveal" data-delay="100">Where to<br><em>begin</em></h2>
+        <p class="menu__subtitle reveal" data-delay="200">What our regulars order, and a good place to start. The full menu runs to more than fifty drinks.</p>
       </div>
 
-      <div class="menu__grid">
+      <figure class="menu__banner reveal" data-delay="150">
+        <img src="images/drink-lineup.webp" alt="A row of Qtea drinks: fruit teas, milk teas, taro and an Oreo smoothie" width="2000" height="666" loading="lazy" decoding="async" />
+      </figure>
 
-        <!-- Card 1: Milk Teas -->
-        <div class="menu-card reveal-up" data-delay="0" data-tilt>
-          <div class="menu-card__icon">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 18H48L44 54C44 54 44 58 32 58C20 58 20 54 20 54L16 18Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <ellipse cx="32" cy="18" rx="16" ry="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <line x1="32" y1="6" x2="32" y2="14" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="28" cy="46" r="3" fill="currentColor" opacity="0.3"/>
-              <circle cx="35" cy="49" r="2.5" fill="currentColor" opacity="0.3"/>
-              <circle cx="31" cy="52" r="2" fill="currentColor" opacity="0.3"/>
-            </svg>
+      <div class="menu__list">
+
+        <div class="menu-group reveal-up" data-delay="0">
+          <div class="menu-group__head">
+            <span class="menu-group__num">I</span>
+            <h3 class="menu-group__title">Milk Teas</h3>
+            <span class="menu-group__kicker">Classic</span>
           </div>
-          <span class="menu-card__category">Classic</span>
-          <h3 class="menu-card__title">Milk Teas</h3>
-          <ul class="menu-card__items">
+          <ul class="menu-group__items">
             <li>
-              <span class="menu-card__item-name">Thai Tea</span>
-              <span class="menu-card__item-tag">Signature</span>
+              <span class="menu-item__name">Thai Tea</span>
+              <span class="menu-item__leader" aria-hidden="true"></span>
+              <span class="menu-item__note">Signature</span>
             </li>
             <li>
-              <span class="menu-card__item-name">Roasted Oolong Milk Tea</span>
-              <span class="menu-card__item-tag">Popular</span>
+              <span class="menu-item__name">Roasted Oolong Milk Tea</span>
+              <span class="menu-item__leader" aria-hidden="true"></span>
+              <span class="menu-item__note">Taiwanese oolong</span>
             </li>
             <li>
-              <span class="menu-card__item-name">Vietnamese Coffee Milk Tea</span>
+              <span class="menu-item__name">Vietnamese Coffee Milk Tea</span>
             </li>
           </ul>
-          <div class="menu-card__glow"></div>
         </div>
 
-        <!-- Card 2: Fruit Teas -->
-        <div class="menu-card reveal-up" data-delay="150" data-tilt>
-          <div class="menu-card__icon">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 20C20 20 14 30 14 40C14 50 22 56 32 56C42 56 50 50 50 40C50 30 44 20 44 20" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <path d="M28 8C28 8 24 14 28 20C32 14 36 14 36 8" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <circle cx="26" cy="38" r="4" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
-              <circle cx="38" cy="42" r="3" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
-              <circle cx="32" cy="48" r="2" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
-            </svg>
+        <div class="menu-group reveal-up" data-delay="120">
+          <div class="menu-group__head">
+            <span class="menu-group__num">II</span>
+            <h3 class="menu-group__title">Fruit Teas</h3>
+            <span class="menu-group__kicker">Refreshing</span>
           </div>
-          <span class="menu-card__category">Refreshing</span>
-          <h3 class="menu-card__title">Fruit Teas</h3>
-          <ul class="menu-card__items">
+          <ul class="menu-group__items">
             <li>
-              <span class="menu-card__item-name">Passion Fruit Green Tea</span>
-              <span class="menu-card__item-tag">Popular</span>
+              <span class="menu-item__name">Passion Fruit Green Tea</span>
+              <span class="menu-item__leader" aria-hidden="true"></span>
+              <span class="menu-item__note">Popular</span>
             </li>
             <li>
-              <span class="menu-card__item-name">Mango Strawberry Fruit Tea</span>
+              <span class="menu-item__name">Mango Strawberry Fruit Tea</span>
             </li>
             <li>
-              <span class="menu-card__item-name">Peach Fruit Tea</span>
+              <span class="menu-item__name">Peach Fruit Tea</span>
             </li>
           </ul>
-          <div class="menu-card__glow"></div>
         </div>
 
-        <!-- Card 3: Smoothies -->
-        <div class="menu-card reveal-up" data-delay="300" data-tilt>
-          <div class="menu-card__icon">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 20H44L40 54C40 54 40 58 32 58C24 58 24 54 24 54L20 20Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <ellipse cx="32" cy="20" rx="12" ry="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <line x1="32" y1="6" x2="32" y2="17" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="28" cy="14" r="5" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
-              <circle cx="36" cy="12" r="3" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
-            </svg>
+        <div class="menu-group reveal-up" data-delay="240">
+          <div class="menu-group__head">
+            <span class="menu-group__num">III</span>
+            <h3 class="menu-group__title">Smoothies</h3>
+            <span class="menu-group__kicker">Blended</span>
           </div>
-          <span class="menu-card__category">Blended</span>
-          <h3 class="menu-card__title">Smoothies</h3>
-          <ul class="menu-card__items">
+          <ul class="menu-group__items">
             <li>
-              <span class="menu-card__item-name">Black Tea Oreo Smoothie</span>
-              <span class="menu-card__item-tag">Best Seller</span>
+              <span class="menu-item__name">Black Tea Oreo Smoothie</span>
+              <span class="menu-item__leader" aria-hidden="true"></span>
+              <span class="menu-item__note">Best seller</span>
             </li>
             <li>
-              <span class="menu-card__item-name">Matcha Red Bean Smoothie</span>
+              <span class="menu-item__name">Matcha Red Bean Smoothie</span>
             </li>
             <li>
-              <span class="menu-card__item-name">Taro Smoothie</span>
-              <span class="menu-card__item-tag">New</span>
+              <span class="menu-item__name">Taro Smoothie</span>
+              <span class="menu-item__leader" aria-hidden="true"></span>
+              <span class="menu-item__note">New</span>
             </li>
           </ul>
-          <div class="menu-card__glow"></div>
         </div>
 
-        <!-- Card 4: Savory Snacks -->
-        <div class="menu-card reveal-up" data-delay="450" data-tilt>
-          <div class="menu-card__icon">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 32C12 32 12 24 32 24C52 24 52 32 52 32" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <path d="M14 32L16 48C16 48 16 54 32 54C48 54 48 48 48 48L50 32" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <path d="M18 38H46" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-              <circle cx="24" cy="14" r="4" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
-              <circle cx="38" cy="16" r="3" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
-            </svg>
+        <div class="menu-group reveal-up" data-delay="360">
+          <div class="menu-group__head">
+            <span class="menu-group__num">IV</span>
+            <h3 class="menu-group__title">From the Kitchen</h3>
+            <span class="menu-group__kicker">Savory</span>
           </div>
-          <span class="menu-card__category">Savory</span>
-          <h3 class="menu-card__title">Savory Snacks</h3>
-          <ul class="menu-card__items">
+          <ul class="menu-group__items">
             <li>
-              <span class="menu-card__item-name">Basil Popcorn Chicken</span>
-              <span class="menu-card__item-tag">House Made</span>
+              <span class="menu-item__name">Basil Popcorn Chicken</span>
+              <span class="menu-item__leader" aria-hidden="true"></span>
+              <span class="menu-item__note">House made</span>
             </li>
             <li>
-              <span class="menu-card__item-name">Curly Fries</span>
-              <span class="menu-card__item-tag">Fan Favorite</span>
+              <span class="menu-item__name">Curly Fries</span>
             </li>
             <li>
-              <span class="menu-card__item-name">Spam Masubi</span>
+              <span class="menu-item__name">Spam Musubi</span>
             </li>
           </ul>
-          <div class="menu-card__glow"></div>
         </div>
 
+      </div>
+
+      <div class="menu__footer reveal" data-delay="200">
+        <a href="https://order.online/store/33225873" target="_blank" rel="noopener noreferrer" class="link-arrow">
+          See the full menu <span aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -433,27 +409,23 @@
   <section class="order" id="order">
     <div class="container">
       <div class="order__wrapper">
-        <div class="order__bg-text" aria-hidden="true">ORDER</div>
-        <span class="section-tag reveal">Ready?</span>
-        <h2 class="section-title section-title--light reveal" data-delay="100">Get Your<br><em><span class="q-accent">Q</span>tea Fix</em></h2>
+        <div class="order__bg-text" aria-hidden="true">茶</div>
+        <span class="section-tag reveal">Pickup &amp; Delivery</span>
+        <h2 class="section-title section-title--light reveal" data-delay="100">Ready when<br><em>you are</em></h2>
         <p class="order__text reveal" data-delay="200">
-          Skip the line. Order ahead for pickup or delivery and have your handcrafted
-          drink ready when you arrive.
+          Order ahead and we'll have it waiting at the counter,
+          or have it brought to your door.
         </p>
         <div class="order__buttons reveal" data-delay="350">
-          <a href="https://order.online/store/33225873" target="_blank" rel="noopener noreferrer" class="btn btn--delivery">
-            <i class="fa-solid fa-truck-fast"></i>
-            <span>
-              <small>Delivery via</small>
-              DoorDash
-            </span>
+          <a href="https://order.snackpass.co/QTea-(4064-Grafton-St-Dublin)-689d4f91b94b48f79d3e741f" target="_blank" rel="noopener noreferrer" class="order-option">
+            <span class="order-option__label">Pickup</span>
+            <span class="order-option__via">Order ahead on Snackpass</span>
+            <span class="order-option__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="https://order.snackpass.co/QTea-(4064-Grafton-St-Dublin)-689d4f91b94b48f79d3e741f" target="_blank" rel="noopener noreferrer" class="btn btn--pickup">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span>
-              <small>Pickup via</small>
-              Snackpass
-            </span>
+          <a href="https://order.online/store/33225873" target="_blank" rel="noopener noreferrer" class="order-option">
+            <span class="order-option__label">Delivery</span>
+            <span class="order-option__via">Delivered by DoorDash</span>
+            <span class="order-option__arrow" aria-hidden="true">→</span>
           </a>
         </div>
       </div>
@@ -470,11 +442,11 @@
       <div class="footer__grid">
         <div class="footer__brand reveal">
           <span class="footer__logo"><img src="branding/qtea.png" alt="Qtea" class="footer__logo-img logo--light" /><img src="branding/qtea-dark.png" alt="Qtea" class="footer__logo-img logo--dark" /></span>
-          <p class="footer__tagline">Handcrafted teas, savory bites,<br>and good vibes.</p>
+          <p class="footer__tagline">Loose-leaf tea and a small kitchen,<br>on Grafton Street in Dublin.</p>
         </div>
 
         <div class="footer__info reveal" data-delay="100">
-          <h4>Visit Us</h4>
+          <h4>Visit</h4>
           <address>
             <a href="https://maps.app.goo.gl/HUZbn8xssgVRDX637" target="_blank" rel="noopener noreferrer">
               4064 Grafton St<br>
@@ -487,9 +459,9 @@
           <h4>Hours</h4>
           <table class="hours-table">
             <tr><td>Mon</td><td>12 – 8 PM</td></tr>
-            <tr><td>Tue</td><td>12 - 8</td></tr>
+            <tr><td>Tue</td><td>12 – 8 PM</td></tr>
             <tr><td>Wed</td><td>12 – 8 PM</td></tr>
-            <tr><td>Thu</td><td>11:30 AM – 8 PM</td></tr>
+            <tr><td>Thu</td><td>11:30 AM – 7 PM</td></tr>
             <tr><td>Fri</td><td>12 – 10 PM</td></tr>
             <tr><td>Sat</td><td>11:30 AM – 10 PM</td></tr>
             <tr><td>Sun</td><td>11:30 AM – 8 PM</td></tr>
@@ -497,7 +469,7 @@
         </div>
 
         <div class="footer__social reveal" data-delay="300">
-          <h4>Follow Us</h4>
+          <h4>Follow</h4>
           <div class="footer__social-links">
             <a href="https://www.instagram.com/qtea.dublin/" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
             <a href="mailto:qteadublin@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
@@ -513,8 +485,6 @@
     </div>
   </footer>
 
-  <!-- GSAP for silky animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="script.js" defer></script>
 </body>
 </html>

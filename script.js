@@ -5,34 +5,48 @@
 (function () {
   'use strict';
 
-  /* ─── LOADING SCREEN ──────────────────────────────────── */
+  /* ─── INTRO / LOADING SCREEN ──────────────────────────── */
+  // The full wordmark intro plays once per browser session; reloads after
+  // that get a quick fade so returning visitors aren't kept waiting.
   const loader = document.getElementById('loader');
-  const loaderBar = document.getElementById('loaderBar');
+  const INTRO_KEY = 'qtea-intro-seen';
+  const INTRO_DURATION = 2300;
+  const QUICK_DURATION = 250;
+  const FONT_WAIT_MAX = 900;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let introSeen = false;
+  try { introSeen = sessionStorage.getItem(INTRO_KEY) === '1'; } catch (e) {}
+  const quickIntro = introSeen || reduceMotion;
+
   document.body.classList.add('loading');
-
-  const LOAD_DURATION = 500;
-  const loadStart = performance.now();
-  let loadRAF;
-
-  function updateLoaderBar() {
-    const elapsed = performance.now() - loadStart;
-    const progress = Math.min(elapsed / LOAD_DURATION, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    if (loaderBar) loaderBar.style.width = (eased * 100) + '%';
-
-    if (progress < 1) {
-      loadRAF = requestAnimationFrame(updateLoaderBar);
-    } else {
-      dismissLoader();
-    }
-  }
+  document.querySelectorAll('.hero-reveal').forEach((el) => el.classList.add('hero-animate'));
 
   function dismissLoader() {
     if (loader) loader.classList.add('done');
     document.body.classList.remove('loading');
+    try { sessionStorage.setItem(INTRO_KEY, '1'); } catch (e) {}
+    // Let the curtain start lifting before the hero settles in underneath
+    setTimeout(heroEntrance, quickIntro ? 0 : 350);
   }
 
-  loadRAF = requestAnimationFrame(updateLoaderBar);
+  function playIntro() {
+    if (!loader) return heroEntrance();
+    if (quickIntro) {
+      loader.classList.add('loader--quick', 'is-playing');
+      setTimeout(dismissLoader, QUICK_DURATION);
+      return;
+    }
+    loader.classList.add('is-playing');
+    setTimeout(dismissLoader, INTRO_DURATION);
+  }
+
+  // Wait (briefly) for Newsreader so the wordmark doesn't animate in a fallback font
+  const fontReady = document.fonts && document.fonts.load
+    ? document.fonts.load('300 64px "Newsreader"').catch(() => {})
+    : Promise.resolve();
+  const fontTimeout = new Promise((resolve) => setTimeout(resolve, quickIntro ? 0 : FONT_WAIT_MAX));
+  Promise.race([fontReady, fontTimeout]).then(playIntro);
 
 
   /* ─── DOM REFERENCES ─────────────────────────────────── */
@@ -116,71 +130,6 @@
       ticking = true;
     }
   }, { passive: true });
-
-
-  /* ─── ORB RANDOMIZATION & CURSOR INTERACTION ──────────── */
-  const orbs = document.querySelectorAll('.hero__orb');
-  const orbData = [];
-
-  orbs.forEach(function (orb) {
-    const top = Math.random() * 80;
-    const left = Math.random() * 80;
-    const floatDuration = 8 + Math.random() * 8;
-    const floatDelay = Math.random() * -floatDuration;
-
-    orb.style.top = top + '%';
-    orb.style.left = left + '%';
-
-    orbData.push({
-      el: orb,
-      baseX: 0,
-      baseY: 0,
-      currentX: 0,
-      currentY: 0,
-      floatDuration: floatDuration,
-      floatDelay: floatDelay,
-    });
-  });
-
-  let mouseX = 0;
-  let mouseY = 0;
-  let heroRect = null;
-
-  const heroSection = document.getElementById('hero');
-  if (heroSection) {
-    heroRect = heroSection.getBoundingClientRect();
-
-    heroSection.addEventListener('mousemove', function (e) {
-      heroRect = heroSection.getBoundingClientRect();
-      mouseX = (e.clientX - heroRect.left) / heroRect.width - 0.5;
-      mouseY = (e.clientY - heroRect.top) / heroRect.height - 0.5;
-    });
-
-    heroSection.addEventListener('mouseleave', function () {
-      mouseX = 0;
-      mouseY = 0;
-    });
-  }
-
-  function animateOrbs() {
-    var now = performance.now() / 1000;
-    orbData.forEach(function (data, i) {
-      var floatY = Math.sin((now + data.floatDelay) * (2 * Math.PI / data.floatDuration)) * 15;
-      var floatX = Math.cos((now + data.floatDelay) * (2 * Math.PI / (data.floatDuration * 1.3))) * 8;
-
-      var strength = (i % 2 === 0) ? 80 : -60;
-      var targetX = floatX + mouseX * strength;
-      var targetY = floatY + mouseY * strength;
-
-      data.currentX += (targetX - data.currentX) * 0.06;
-      data.currentY += (targetY - data.currentY) * 0.04;
-
-      data.el.style.transform = 'translate3d(' + data.currentX.toFixed(1) + 'px, ' + data.currentY.toFixed(1) + 'px, 0)';
-    });
-    requestAnimationFrame(animateOrbs);
-  }
-
-  requestAnimationFrame(animateOrbs);
 
 
   /* ─── PARALLAX EFFECT ────────────────────────────────── */
@@ -271,54 +220,6 @@
   }
 
 
-  /* ─── CARD TILT MICRO-INTERACTION ────────────────────── */
-  const tiltCards = document.querySelectorAll('[data-tilt]');
-
-  tiltCards.forEach((card) => {
-    card.addEventListener('click', () => {
-      const order = document.getElementById('order');
-      if (!order) return;
-      const navHeight = nav.offsetHeight;
-      window.scrollTo({
-        top: order.getBoundingClientRect().top + window.scrollY - navHeight,
-        behavior: 'smooth',
-      });
-    });
-
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const rotateX = ((y - centerY) / centerY) * -8;
-      const rotateY = ((x - centerX) / centerX) * 8;
-
-      card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px) scale(1.02)`;
-
-      card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
-      card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-      card.style.setProperty('--mouse-x', '50%');
-      card.style.setProperty('--mouse-y', '50%');
-    });
-  });
-
-
-  /* ─── BUTTON MOUSE-FOLLOW GLOW ────────────────────────── */
-  document.querySelectorAll('.btn').forEach(function (btn) {
-    btn.addEventListener('mousemove', function (e) {
-      var rect = btn.getBoundingClientRect();
-      btn.style.setProperty('--btn-x', (e.clientX - rect.left) + 'px');
-      btn.style.setProperty('--btn-y', (e.clientY - rect.top) + 'px');
-    });
-  });
-
-
   /* ─── SMOOTH ANCHOR SCROLLING ────────────────────────── */
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
@@ -339,18 +240,15 @@
 
 
   /* ─── HERO ENTRANCE ANIMATION (CSS-driven, no GSAP dependency) ── */
+  // Called by dismissLoader(); elements were given .hero-animate up front
   function heroEntrance() {
     const heroReveals = document.querySelectorAll('.hero-reveal');
-    heroReveals.forEach((el) => el.classList.add('hero-animate'));
-
     void document.body.offsetHeight;
 
     heroReveals.forEach((el, i) => {
-      setTimeout(() => el.classList.add('visible'), i * 120);
+      setTimeout(() => el.classList.add('visible'), i * 130);
     });
   }
-
-  heroEntrance();
 
 
   /* ─── PERFORMANCE: DISABLE HOVER ON SCROLL ───────────── */
@@ -365,103 +263,86 @@
 
 
   /* ─── IMAGE CAROUSEL ─────────────────────────────────── */
-  const EXTENSIONS = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'webp'];
-  const MAX_IMAGES = 20;
+  // Curated and ordered by hand: alternate drinks and food, best shot first.
+  // To add a photo, drop a 4:5 image (800×1000 works well) into images/
+  // and add a line here.
+  const PHOTOS = [
+    { src: 'images/cheese-foam-black-tea.webp', alt: 'Black tea topped with cheese foam' },
+    { src: 'images/basil-popcorn-chicken.webp', alt: 'House-made basil popcorn chicken' },
+    { src: 'images/taro-milk-tea.webp', alt: 'Taro milk tea with tapioca pearls' },
+    { src: 'images/spam-musubi.webp', alt: 'Spam musubi wrapped in nori' },
+    { src: 'images/passion-fruit-tea.webp', alt: 'Passion fruit green tea over ice' },
+    { src: 'images/egg-waffle-sundae.webp', alt: 'Egg waffle cone filled with soft serve' },
+    { src: 'images/thai-tea.webp', alt: 'Layered iced milk tea' },
+    { src: 'images/chicken-and-curly-fries.webp', alt: 'Popcorn chicken and curly fries' },
+    { src: 'images/black-tea-oreo-smoothie.webp', alt: 'Black tea Oreo smoothie with whipped cream' },
+    { src: 'images/egg-waffle.webp', alt: 'Golden egg waffle on a wooden board' },
+  ];
 
   function initCarousel() {
     const carousel = document.getElementById('carousel');
     const track = document.getElementById('carouselTrack');
-    const dotsContainer = document.getElementById('carouselDots');
+    const currentLabel = document.getElementById('carouselCurrent');
+    const totalLabel = document.getElementById('carouselTotal');
     const placeholder = document.querySelector('.about__art');
-    if (!carousel || !track) return;
+    if (!carousel || !track || PHOTOS.length === 0) return;
 
-    const loaded = [];
-    const found = new Set();
-    let probeCount = 0;
-    const totalProbes = MAX_IMAGES * EXTENSIONS.length;
-
-    for (let i = 1; i <= MAX_IMAGES; i++) {
-      EXTENSIONS.forEach(function (ext) {
-        const src = 'images/' + i + '.' + ext;
-        const key = i;
-        const img = new Image();
-        img.onload = function () {
-          if (!found.has(key)) {
-            found.add(key);
-            loaded.push(src);
-          }
-          probeCount++;
-          if (probeCount === totalProbes) buildCarousel();
-        };
-        img.onerror = function () {
-          probeCount++;
-          if (probeCount === totalProbes) buildCarousel();
-        };
-        img.src = src;
-      });
-    }
-
-    function buildCarousel() {
-      if (loaded.length === 0) return;
-
-      for (let i = loaded.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [loaded[i], loaded[j]] = [loaded[j], loaded[i]];
+    PHOTOS.forEach((photo, i) => {
+      const img = document.createElement('img');
+      img.src = photo.src;
+      img.alt = photo.alt;
+      img.width = 800;
+      img.height = 1000;
+      img.decoding = 'async';
+      if (i > 0) img.loading = 'lazy';
+      img.draggable = false;
+      if (i === 0) {
+        img.classList.add('active');
+        img.addEventListener('load', reveal, { once: true });
+        if (img.complete) reveal();
       }
+      track.appendChild(img);
+    });
 
-      loaded.forEach((src, i) => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = 'Qtea Dublin bubble tea house - photo ' + (i + 1);
-        img.loading = 'lazy';
-        img.draggable = false;
-        if (i === 0) img.classList.add('active');
-        track.appendChild(img);
+    const pad = (n) => String(n).padStart(2, '0');
+    if (totalLabel) totalLabel.textContent = pad(PHOTOS.length);
 
-        const dot = document.createElement('button');
-        dot.className = 'carousel__dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Image ' + (i + 1));
-        dot.addEventListener('click', () => goTo(i));
-        dotsContainer.appendChild(dot);
-      });
-
+    function reveal() {
       if (placeholder) placeholder.classList.add('hidden');
       carousel.classList.add('loaded');
-
-      let current = 0;
-      let autoTimer;
-      const images = track.querySelectorAll('img');
-      const dots = dotsContainer.querySelectorAll('.carousel__dot');
-      const prevBtn = document.getElementById('carouselPrev');
-      const nextBtn = document.getElementById('carouselNext');
-
-      function goTo(index) {
-        images[current].classList.remove('active');
-        dots[current].classList.remove('active');
-        current = index;
-        images[current].classList.add('active');
-        dots[current].classList.add('active');
-      }
-
-      function next() { goTo((current + 1) % loaded.length); }
-      function prev() { goTo((current - 1 + loaded.length) % loaded.length); }
-
-      function resetAuto() {
-        clearInterval(autoTimer);
-        if (loaded.length > 1) {
-          autoTimer = setInterval(next, 4000);
-        }
-      }
-
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => { prev(); resetAuto(); });
-      }
-      if (nextBtn) {
-        nextBtn.addEventListener('click', () => { next(); resetAuto(); });
-      }
-
-      resetAuto();
     }
+
+    let current = 0;
+    let autoTimer;
+    const images = track.querySelectorAll('img');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+
+    function goTo(index) {
+      images[current].classList.remove('active');
+      current = index;
+      images[current].classList.add('active');
+      if (currentLabel) currentLabel.textContent = pad(current + 1);
+    }
+
+    function next() { goTo((current + 1) % PHOTOS.length); }
+    function prev() { goTo((current - 1 + PHOTOS.length) % PHOTOS.length); }
+
+    function resetAuto() {
+      clearInterval(autoTimer);
+      if (PHOTOS.length > 1) {
+        autoTimer = setInterval(next, 5000);
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => { prev(); resetAuto(); });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => { next(); resetAuto(); });
+    }
+
+    resetAuto();
   }
 
   initCarousel();
